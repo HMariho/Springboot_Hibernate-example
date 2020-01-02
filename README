@@ -1,0 +1,83 @@
+Manual for deploying the app
+
+You need a MYSQL server and Maven.
+
+Connect to it putting the necesary data under SRC/MAIN/RESOURCES/application.properties. You'll find these lines
+
+"spring.datasource.url" -> Connection URL
+"spring.datasource.username" -> DB user username
+"spring.datasource.password" -> DB user password
+
+You must point the database with this properties.
+
+To run the app, you must build it first
+Go to the root of the app in bash or cmd, use the command "mvnw clean package" to build the .jar, execute the jar file with 
+java -jar target\HibernateSpringProto-0.0.1-SNAPSHOT.jar
+
+
+API calls:
+
+Get all items:
+GET [Server]/item/allItems:
+
+Returns a list with all items from the database.
+
+
+Get Item Details:
+GET [Server]/item/detail?
+id=[long item ID]
+
+Parameters
+ID= item ID, expects a LONG
+
+Returns all the data about the item specified in the [ID] field
+
+Post new Item
+POST [SERVER]/register/item/?
+  description= [string description]&
+  value= [double value] &
+  active= [string active] (yes or no)
+
+Posts a new item into the DB
+
+
+Edit Item
+
+POST [SERVER]/edit/item/?
+  id = [long item id],
+  description = [String description]
+  value = [double item value]
+  
+edits an item from the database.
+
+
+
+Add or remove supplier to item
+
+POST [SERVER]/edit/item/suppliers?
+  idItem = [Long item id],
+  idSupplier = [Long supplier ID],
+  action = [String action, Supports "add" or "remove"
+
+Adds or removes a supplier from an item depending on the mode of the call.
+
+
+Add a discount to an ITEM 
+
+POST [server]/edit/item/newDiscount?
+  idItem =[Long item id],
+  value = [Double discounted quantity]
+  startDate = [String start date]
+  endDate = [String end date]
+  
+ Adds a discount to an item
+
+
+Deactivate an ITEM 
+POST edit/item/deactivate?
+  idItem = [LONG item id]
+  reason =  [String reason]
+  
+ Deactivates an item, and creates an entry for the deactivation
+
+
